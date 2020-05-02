@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown 2</title>
+    <style>
+        body {
+            background-color: #f2f1ed;
+        }
+
+        .countdown-wrapper {
+            margin: 100px auto;
+            height: 310px;
+        }
+
+        .countdown-wrapper h1 {
+            margin-bottom: 60px;
+            text-align: center;
+            font: 300 2.80em "Lato";
+            text-transform: uppercase;
+            color: #1d1465;
+        }
+
+        .countdown-wrapper h1 strong {
+            font-weight: 400;
+            color: #ea4c4c;
+        }
+
+        .countdown-wrapper .countdown-content {
+            position: relative;
+            width: 770px;
+            margin: 0 auto;
+        }
+
+        .countdown-wrapper .countdown {
+            width: 250px;
+            float: left;
+        }
+
+        .countdown-wrapper .countdown .countdown-item {
+            position: relative;
+            float: left;
+            height: 80px;
+            width: 70px;
+            margin-right: 10px;
+            text-align: center;
+            background: -webkit-linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 10%);
+            background: -o-linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 10%);
+            background: -moz-linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 10%);
+            background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 10%);
+            border-radius: 8px;
+            -moz-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), inset 2px 4px 0 0 rgba(255, 255, 255, 0.08);
+            -webkit-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), inset 2px 4px 0 0 rgba(255, 255, 255, 0.08);
+            box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), inset 2px 4px 0 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .countdown-wrapper .countdown .countdown-item .varter {
+            position: relative;
+            left: 0;
+            right: 0;
+            margin: auto;
+            font: normal 4.94em/107px "Lato";
+            font-weight: 700;
+            color: #de4848;
+            top: -12px;
+        }
+
+        .countdown-wrapper .countdown .count-title {
+            display: block;
+            margin-bottom: 15px;
+            font: normal 0.94em "Lato";
+            color: #1d1465;
+            text-align: center;
+            max-width: 140px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .countdown-wrapper .minutes {
+            margin-left: 154px;
+            margin-top: 30px;
+        }
+
+        .countdown-wrapper .seconds {
+            margin-top: 30px;
+        }
+
+        .progress {
+            height: 1.25rem;
+            font-size: .75rem;
+            background-color: #ddd;
+            border-radius: .125rem;
+            margin-bottom: 30px;
+        }
+        .progress, .progress-bar {
+            display: flex;
+            overflow: hidden;
+        }
+        .progress-bar {
+            text-shadow: 1px 1px 0 rgba(0,0,0,.07);
+            overflow: visible;
+        }
+        .rounded {
+            border-radius: .125rem!important;
+        }
+        .progress-bar {
+            flex-direction: column;
+            justify-content: center;
+            color: #333;
+            text-align: center;
+            white-space: nowrap;
+            background-color: #74e06b;
+            transition: width .6s ease;
+        }
+
+    </style>
+</head>
+<body>
+<div class="countdown-wrapper" id="countdown-wrapper" data-total-seconds="1209600">
+    <div class="countdown-content">
+        <h1>Next Block Reward Reduction</h1>
+        <div class="progress mt-1 mb-1">
+            <div class="progress-bar rounded" data-target="homepage.posBar" role="progressbar" style="width: 86.1111%;" aria-valuenow="106" aria-valuemin="0" aria-valuemax="144">
+                <span class="nowrap pl-1">block <span data-target="homepage.windowIndex">124</span> of 144</span>
+            </div>
+        </div>
+        <div class="countdown weeks">
+            <span class="count-title">Weeks</span>
+            <div class="countdown-item">
+                <span class="varter week-0">0</span>
+            </div>
+            <div class="countdown-item">
+                <span class="varter week-1">0</span>
+            </div>
+        </div>
+        <div class="countdown days">
+            <span class="count-title">Days</span>
+            <div class="countdown-item">
+                <span class="varter day-0">0</span>
+            </div>
+            <div class="countdown-item">
+                <span class="varter  day-1">0</span>
+            </div>
+        </div>
+        <div class="countdown hours">
+            <span class="count-title">Hours</span>
+            <div class="countdown-item">
+                <span class="varter hour-0">40</span>
+            </div>
+            <div class="countdown-item">
+                <span class="varter hour-1">0</span>
+            </div>
+        </div>
+        <div class="countdown minutes">
+            <span class="count-title">Minutes</span>
+            <div class="countdown-item">
+                <span class="varter minute-0">0</span>
+            </div>
+            <div class="countdown-item">
+                <span class="varter minute-1">0</span>
+            </div>
+        </div>
+        <div class="countdown seconds">
+            <span class="count-title">Seconds</span>
+            <div class="countdown-item">
+                <span class="varter second-0">0</span>
+            </div>
+            <div class="countdown-item">
+                <span class="varter second-1">0</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function padZeros(str) {
+        var pad = "00"
+        return pad.substring(0, pad.length - str.length) + str
+    }
+    var remainingSeconds = parseInt(document.getElementById('countdown-wrapper').dataset.totalSeconds);
+    function countDownTimer(allsecs) {
+        if (allsecs > 59875200) { //99 weeks maximum
+            alert('Timer overflow')
+            return;
+        }
+        var weekString = ''
+        var dayString = ''
+        var hourString = ''
+        var minuteString = ''
+        var secondString = ''
+        if (allsecs > 604799) {
+            var weeks = allsecs / 604800
+            allsecs %= 604800
+            weekString += padZeros(Math.floor(weeks) + '')
+        } else {
+            weekString = '00'
+        }
+        if (allsecs > 86399) {
+            var days = allsecs / 86400
+            allsecs %= 86400
+            dayString += padZeros(Math.floor(days) + '')
+        } else {
+            dayString = '00'
+        }
+
+        if (allsecs > 3599) {
+            var hours = allsecs / 3600
+            allsecs %= 3600
+            hourString += padZeros(Math.floor(hours) + '')
+        } else {
+            hourString = '00'
+        }
+        if (allsecs > 59) {
+            var mins = allsecs / 60
+            allsecs %= 60
+            minuteString += padZeros(Math.floor(mins) + '')
+        } else {
+            minuteString = '00'
+        }
+        if (allsecs >= 0) {
+            secondString += padZeros(Math.floor(allsecs) + '')
+        } else {
+            secondString = '00'
+        }
+        // this.nextReductionTimerTarget.innerHTML = str + 'remaining'
+        console.log('Week: ', weekString, 'Days: ', dayString, 'Hour: ', hourString, 'Minute: ', minuteString, 'second: ', secondString);
+        document.getElementsByClassName('week-0')[0].innerHTML = weekString.charAt(0)
+        document.getElementsByClassName('week-1')[0].innerHTML = weekString.charAt(1)
+        document.getElementsByClassName('day-0')[0].innerHTML = dayString.charAt(0)
+        document.getElementsByClassName('day-1')[0].innerHTML = dayString.charAt(1)
+        document.getElementsByClassName('hour-0')[0].innerHTML = hourString.charAt(0)
+        document.getElementsByClassName('hour-1')[0].innerHTML = hourString.charAt(1)
+        document.getElementsByClassName('minute-0')[0].innerHTML = minuteString.charAt(0)
+        document.getElementsByClassName('minute-1')[0].innerHTML = minuteString.charAt(1)
+        document.getElementsByClassName('second-0')[0].innerHTML = secondString.charAt(0)
+        document.getElementsByClassName('second-1')[0].innerHTML = secondString.charAt(1)
+        remainingSeconds--
+    }
+    setInterval(function () {
+        countDownTimer(remainingSeconds)
+    }, 1000);
+</script>
+
+</body>
+</html>
